@@ -1,0 +1,225 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08111f">
+  <meta name="description" content="IEUM Baseball - 3D 웹 야구게임">
+  <title>IEUM Baseball</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <a class="brand" href="./">IEUM<span>BASEBALL</span></a>
+      <div class="topbar-right">
+        <span id="save-status">LOCAL SAVE</span>
+        <span class="online-dot"></span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="profile">
+          <div class="avatar">M</div>
+          <div>
+            <strong id="manager-name">MARST</strong>
+            <small>BASEBALL MANAGER</small>
+          </div>
+        </div>
+
+        <div class="nav-label">MAIN MENU</div>
+        <button class="nav-button active" data-page="game">⚾ 경기 플레이</button>
+        <button class="nav-button" data-page="season">🏆 시즌 · 리그</button>
+        <button class="nav-button" data-page="players">👥 선수단</button>
+        <button class="nav-button" data-page="training">💪 선수 육성</button>
+
+        <div class="sidebar-bottom">
+          <div class="mini-stat">
+            <span>보유 포인트</span>
+            <strong id="points">1000 P</strong>
+          </div>
+          <div class="mini-stat">
+            <span>시즌</span>
+            <strong id="season-number">SEASON 1</strong>
+          </div>
+          <p>IEUM Baseball v1.0</p>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">IEUM SPORTS PROJECT</div>
+            <h1 id="page-title">경기 플레이</h1>
+            <p id="page-description">직접 타격하고 승리를 쟁취해.</p>
+          </div>
+          <div class="record-chip">
+            <span>시즌 전적</span>
+            <strong id="record">0승 0패</strong>
+          </div>
+        </div>
+
+        <section id="page-game" class="page">
+          <div class="scoreboard">
+            <div class="team-score">
+              <small>HOME</small>
+              <strong id="home-score">0</strong>
+              <span id="home-team">IEUM EAGLES</span>
+            </div>
+            <div class="inning-info">
+              <span id="inning-label">1회초</span>
+              <strong id="count-label">B 0 · S 0 · O 0</strong>
+              <small id="bases-label">주자 없음</small>
+            </div>
+            <div class="team-score away">
+              <small>AWAY</small>
+              <strong id="away-score">0</strong>
+              <span id="away-team">NEX STARS</span>
+            </div>
+          </div>
+
+          <div class="stadium-container">
+            <div id="stadium"></div>
+            <div class="stadium-badge">
+              <span class="live-dot"></span>
+              3D STADIUM
+            </div>
+            <div class="camera-badge" id="camera-status">BATTER VIEW</div>
+            <div class="pitch-indicator" id="pitch-indicator">
+              <span>READY TO PLAY</span>
+              <strong>투구를 시작해!</strong>
+            </div>
+          </div>
+
+          <div class="game-controls">
+            <div class="control-title">
+              <div>
+                <h2>경기 컨트롤</h2>
+                <p id="game-message">투구 시작 버튼을 눌러 경기를 시작해.</p>
+              </div>
+              <span class="phase-badge" id="phase-badge">READY</span>
+            </div>
+
+            <div class="control-grid">
+              <button class="action-button primary" id="pitch-button">
+                <span>⚾</span>
+                <strong>투구 시작</strong>
+                <small>다음 공을 던진다</small>
+              </button>
+
+              <button class="action-button" id="swing-button">
+                <span>🏏</span>
+                <strong>타격 / 스윙</strong>
+                <small>스페이스바</small>
+              </button>
+
+              <button class="action-button" id="aim-button">
+                <span>🎯</span>
+                <strong>조준 타격</strong>
+                <small>조준 모드 전환</small>
+              </button>
+            </div>
+
+            <div class="aim-panel" id="aim-panel">
+              <div>
+                <strong>타격 코스 조준</strong>
+                <small>스트라이크 존 안의 원하는 코스를 선택해.</small>
+              </div>
+              <div class="aim-grid">
+                <button data-aim="0,1">↖</button>
+                <button data-aim="1,1">↑</button>
+                <button data-aim="2,1">↗</button>
+                <button data-aim="0,0">←</button>
+                <button data-aim="1,0">●</button>
+                <button data-aim="2,0">→</button>
+                <button data-aim="0,-1">↙</button>
+                <button data-aim="1,-1">↓</button>
+                <button data-aim="2,-1">↘</button>
+              </div>
+            </div>
+
+            <div class="count-row">
+              <span>볼 <strong id="balls">0</strong></span>
+              <span>스트라이크 <strong id="strikes">0</strong></span>
+              <span>아웃 <strong id="outs">0</strong></span>
+              <span>투구 속도 <strong id="speed">-- km/h</strong></span>
+            </div>
+
+            <div class="game-footer">
+              <button class="secondary-button" id="reset-button">경기 초기화</button>
+              <button class="secondary-button" id="next-inning-button">다음 이닝</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-season" class="page hidden">
+          <div class="dashboard-grid">
+            <article class="panel">
+              <div class="eyebrow">LEAGUE OVERVIEW</div>
+              <h2>시즌 정보</h2>
+              <div class="big-number" id="season-wins">0승</div>
+              <p>현재 시즌 승리 횟수</p>
+              <div class="progress-track"><div id="season-progress"></div></div>
+              <p id="season-progress-label">0 / 10 경기</p>
+              <button class="wide-button" id="play-season-button">다음 시즌 경기 진행</button>
+            </article>
+
+            <article class="panel">
+              <div class="eyebrow">TEAM RECORD</div>
+              <h2>우리 팀 전적</h2>
+              <div class="stat-line"><span>승리</span><strong id="wins-stat">0</strong></div>
+              <div class="stat-line"><span>패배</span><strong id="losses-stat">0</strong></div>
+              <div class="stat-line"><span>승률</span><strong id="win-rate">0%</strong></div>
+            </article>
+          </div>
+
+          <article class="panel">
+            <h2>리그 순위표</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>순위</th><th>팀</th><th>승</th><th>패</th><th>승률</th></tr></thead>
+                <tbody id="league-table"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h2>시즌 경기 일정</h2>
+            <div id="schedule-list"></div>
+          </article>
+        </section>
+
+        <section id="page-players" class="page hidden">
+          <div class="player-grid" id="player-list"></div>
+        </section>
+
+        <section id="page-training" class="page hidden">
+          <article class="panel training-panel">
+            <div class="eyebrow">PLAYER DEVELOPMENT</div>
+            <h2>선수 육성 센터</h2>
+            <p>훈련을 진행해 능력치를 올리고 다음 경기를 준비해.</p>
+            <div class="form-row">
+              <label for="training-player">훈련 선수</label>
+              <select id="training-player"></select>
+            </div>
+            <div class="form-row">
+              <label for="training-type">훈련 종류</label>
+              <select id="training-type">
+                <option value="contact">타격 정확도 훈련 — 100 P</option>
+                <option value="power">장타력 훈련 — 100 P</option>
+                <option value="eye">선구안 훈련 — 100 P</option>
+                <option value="pitching">투구 훈련 — 100 P</option>
+              </select>
+            </div>
+            <button class="wide-button" id="train-button">훈련 시작</button>
+            <p id="training-message" class="notice"></p>
+          </article>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
